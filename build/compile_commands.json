@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/pawelj/Git_repos/business_sim_game/build",
+  "command": "/home/pawelj/miniconda3/bin/x86_64-conda-linux-gnu-g++   -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home/pawelj/miniconda3/include -g -o CMakeFiles/project.dir/main.cpp.o -c /home/pawelj/Git_repos/business_sim_game/main.cpp",
+  "file": "/home/pawelj/Git_repos/business_sim_game/main.cpp"
+}
+]
