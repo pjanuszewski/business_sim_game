@@ -337,7 +337,7 @@ public:
             std::cout << "Nie można obliczyć wartości spółki, gra trwa mniej niż 3 tury\n";
         }
         else
-            for (int i = 0; i < N; i++)
+            for (int i = obecna_tura-N+1; i <= obecna_tura; i++)
             {
                 sum += historia_przychodów[i];
             }
