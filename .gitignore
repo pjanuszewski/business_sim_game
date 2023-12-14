@@ -33,3 +33,5 @@
 
 /build
 /CMakeLists.txt
+/.vscode
+/.cache/clangd/index
