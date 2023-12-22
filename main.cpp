@@ -5,49 +5,59 @@
 #include <variant>
 #include <cstdlib>
 
-class Pracownik
+class Employee
 {
 public:
+    Employee()
+    {
+        number_of_employees++;
+    }
     void set_name()
     {
-        this->name = get_random_name();
+        name = get_random_name();
     }
     std::string get_name() const
     {
         return name;
     }
-    double get_wynagrodzenie() const
+    double get_salary() const
     {
-        return wynagrodzenie;
+        return salary;
+    }
+    static int get_number_of_employees()
+    {
+        return number_of_employees;
     }
     protected:
-    void set_wynagrodzenie(double wynagrodzenie)
+    void set_salary(double salary_value)
     {
-        this->wynagrodzenie = wynagrodzenie;
+        salary = salary_value;
     }
-    std::variant<int, double, bool, std::string> cecha;
+    std::variant<int, double, bool, std::string> unique_quality;
 private:
     std::string name;
-    double wynagrodzenie;
+    double salary;  
+    static int number_of_employees;
 };
 
-class Inżynier : public Pracownik
+class Engineer : public Employee
 {
 public:
-    Inżynier()
+    Engineer()
     {
         set_name();
-        set_wynagrodzenie(1000);
+        set_salary(1000);
+        number_of_engineers++;
     }
     void print() const
     {
-        std::cout << "Imię Inżyniera: " << get_name() << "\n";
-        std::cout << "Wynagrodzenie (PLN): " << get_wynagrodzenie() << "\n";
-        std::cout << "Wykształcenie: " << get_cecha() << "\n";
+        std::cout << "Name of engineer: " << get_name() << "\n";
+        std::cout << "salary (PLN): " << get_salary() << "\n";
+        std::cout << "Education: " << get_unique_quality() << "\n";
     }
-    std::string get_cecha() const
+    std::string get_unique_quality() const
     {
-        return cecha;
+        return unique_quality;
     }
         std::string pickRandomString(const std::vector<std::string>& strings)
     {
@@ -57,30 +67,39 @@ public:
         int index = dis(gen);
         return strings[index];
     }
+    static int get_number_of_engineers()
+    {
+        return number_of_engineers;
+    }
     constexpr static const double CI = 134;
 private:
-    std::vector<std::string> strings = {"Robotyka", "Energetyka", "Lotnictwo"};
-    std::string cecha = pickRandomString(strings); // wykształcenie
-    
+    std::vector<std::string> strings = {"Robotics", "Energy", "Aviation"};
+    std::string unique_quality = pickRandomString(strings);
+    static int number_of_engineers;
 };
 
-class Magazynier : public Pracownik
+class Warehouse_worker : public Employee
 {
 public:
-    Magazynier()
+    Warehouse_worker()
     {
         set_name();
-        set_wynagrodzenie(400);
+        set_salary(400);
+        number_of_warehouse_workers++;
     }
-    bool get_cecha() const
+    bool get_unique_quality() const
     {
-        return cecha;
+        return unique_quality;
     }
     void print() const
     {
-        std::cout << "Imię Magazyniera: " << get_name() << "\n";
-        std::cout << "Wynagrodzenie (PLN): " << get_wynagrodzenie() << "\n";
-        std::cout << "Uprawnienia na wózek widłowy: " << get_cecha() << "\n";
+        std::cout << "Name of warehouse worker: " << get_name() << "\n";
+        std::cout << "salary (PLN): " << get_salary() << "\n";
+        std::cout << "Forklift license: " << get_unique_quality() << "\n";
+    }
+    static int get_number_of_warehouse_workers()
+    {
+        return number_of_warehouse_workers;
     }
     constexpr static const double CMag = 123;
 private:
@@ -88,92 +107,101 @@ private:
     {
         return rand() % 2 == 0;
     }
-    bool cecha = generate_random_bool(); // czy ma uprawnienia na wózek widłowy
-protected:
-    
+    bool unique_quality = generate_random_bool();
+    static int number_of_warehouse_workers;
 };
 
-class Marketer : public Pracownik
+class Marketer : public Employee
 {
 public:
     Marketer()
     {
         set_name();
-        set_wynagrodzenie(500);
+        set_salary(500);
+        number_of_marketers++;
     }
-    int get_cecha() const
+    int get_unique_quality() const
     {
-        return cecha;
+        return unique_quality;
     }
     void print() const
     {
-        std::cout << "Imię Marketera: " << get_name() << "\n";
-        std::cout << "Wynagrodzenie (PLN): " << get_wynagrodzenie() << "\n";
-        std::cout << "Followersi na Instagramie: " << get_cecha() << "\n";
+        std::cout << "Name of Marketer: " << get_name() << "\n";
+        std::cout << "salary (PLN): " << get_salary() << "\n";
+        std::cout << "Instagram followers: " << get_unique_quality() << "\n";
+    }
+    static int get_number_of_marketers()
+    {
+        return number_of_marketers;
     }
     constexpr static const double CMkt = 145;
 private:
-    int cecha = rand() % 1001; // liczba od 0 do 1000 followersów na Instagramie
-    
+    int unique_quality = rand() % 1001;
+    static int number_of_marketers;
 };
 
-class Robotnik: public Pracownik
+class Construction_worker: public Employee
 {
 public:
-    Robotnik()
+    Construction_worker()
     {
         set_name();
-        set_wynagrodzenie(600);
+        set_salary(600);
+        number_of_construction_workers++;
     }
-    double get_cecha() const
+    double get_unique_quality() const
     {
-        return cecha;
+        return unique_quality;
     }
     void print() const
     {
-        std::cout << "Imię Robotnika: " << get_name() << "\n";
-        std::cout << "Wynagrodzenie (PLN): " << get_wynagrodzenie() << "\n";
-        std::cout << "Rozmiar buta: " << get_cecha() << "\n";
+        std::cout << "Name of construction worker: " << get_name() << "\n";
+        std::cout << "salary (PLN): " << get_salary() << "\n";
+        std::cout << "Shoe size: " << get_unique_quality() << "\n";
+    }
+    static int get_number_of_construction_workers()
+    {
+        return number_of_construction_workers;
     }
     constexpr static const double CR = 78;
 private:
-    double cecha = rand() % 20; // rozmiar buta
-    
+    double unique_quality = rand() % 20;
+    static int number_of_construction_workers;
 };
 
-struct Printer_pracowników
+struct Employee_printer
 {
-    void operator()(const Inżynier& pracownik) { pracownik.print();}
-    void operator()(const Magazynier& pracownik) { pracownik.print();}
-    void operator()(const Marketer& pracownik) { pracownik.print();}
-    void operator()(const Robotnik& pracownik) { pracownik.print();}
+    void operator()(const Engineer& Employee) { Employee.print();}
+    void operator()(const Warehouse_worker& Employee) { Employee.print();}
+    void operator()(const Marketer& Employee) { Employee.print();}
+    void operator()(const Construction_worker& Employee) { Employee.print();}
 };
 
 class Credit
 {
 public:
     double monthly_payment;
-    Credit() : credit{0}, duration{0}, obecna_tura{0} {}
-    Credit(const double& credit, const int& duration, const int&obecna_tura) : credit{credit}, duration{duration}, obecna_tura{obecna_tura}
+    Credit() : credit{0}, duration{0}, current_round{0} {}
+    Credit(const double& credit, const int& duration, const int&current_round) : credit{credit}, duration{duration}, current_round{current_round}
     {
         interest_rate = 0.00001*duration*credit;
-        tura_wziecia_kredytu = obecna_tura;
+        round_of_loan_taking = current_round;
     }
     double payment(const Credit& credit)
     {
         return credit.credit + credit.interest_rate;
     }
-    double get_tura_wziecia_kredytu() const
+    double get_round_of_loan_taking() const
     {
-        return tura_wziecia_kredytu;
+        return round_of_loan_taking;
     }
     int get_duration() const
     {
         return duration;
     }
 private:
-    int obecna_tura;
-    int tura_wziecia_kredytu;
+    int current_round;
+    int round_of_loan_taking;
     double credit{0};
     double interest_rate{0};
     int duration;
@@ -181,323 +209,283 @@ private:
     double total_interest;
 };
 
-class Company : public Pracownik, public Credit
+class Company : public Employee, public Credit
 {
 public:
-    Company() : prac(), kredyty(std::make_unique<Credit[]>(n_kredytów)), historia_przychodów(std::make_unique<double[]>(N)), stan_konta(100000.0)
+    Company() : workers_vector(), loans(std::make_unique<Credit[]>(number_of_loans)), income_history(std::make_unique<double[]>(N)), state_of_account(100000.0)
     {
         
     }
-    void drukuj_pracowników() const
+    void print_employees() const
     {
-        for (int i = 0; i < n_pracowników; i++)
+        for (int i = 0; i < get_number_of_employees(); i++)
         {
-            std::visit(Printer_pracowników{}, prac[i]);
+            std::visit(Employee_printer{}, workers_vector[i]);
         }
     }
-    void wez_kredyt(double kwota, int duration, int obecna_tura)
+    void take_loan(double ammount, int duration, int current_round)
     {
-        kredyty[n_kredytów] = Credit(kwota, duration, obecna_tura);
-        n_kredytów++;
+        loans[number_of_loans] = Credit(ammount, duration, current_round);
+        number_of_loans++;
     }
-    void zatrudnij(std::string s)
+    void hire(std::string s)
     {
-        if (s == "Inżynier")
+        if (s == "Engineer")
         {
-            prac.emplace_back(Inżynier());
-            n_pracowników++;
+            workers_vector.emplace_back(Engineer());
         }
-        else if (s == "Magazynier")
+        else if (s == "Warehouse_worker")
         {
-            prac.emplace_back(Magazynier());
-            n_pracowników++;
+            workers_vector.emplace_back(Warehouse_worker());
         }
         else if (s == "Marketer")
         {
-            prac.emplace_back(Marketer());
-            n_pracowników++;
+            workers_vector.emplace_back(Marketer());
         }
-        else if (s == "Robotnik")
+        else if (s == "Construction_worker")
         {
-            prac.emplace_back(Robotnik());
-            n_pracowników++;
+            workers_vector.emplace_back(Construction_worker());
         }
     }
-    void zaplac_wynagrodzenia()
+    void pay_salary()
     {
-        wynagrodzenie_w_tej_turze = 0;
-        for (int i = 0; i < n_pracowników; i++)
+        current_round_salary = 0;
+        for (int i = 0; i < Employee::get_number_of_employees(); i++)
         {
-            wynagrodzenie_w_tej_turze += std::visit([](auto&& arg) { return arg.get_wynagrodzenie(); }, prac[i]);
+            current_round_salary += std::visit([](auto&& arg) { return arg.get_salary(); }, workers_vector[i]);
         }
-        stan_konta -= wynagrodzenie_w_tej_turze;
+        state_of_account -= current_round_salary;
     }
-    double oplata_kredytu(const int& obecna_tura)
+    double loan_payment(const int& current_round)
     {
-        oplata = 0;
-        for (int i = 0; i < n_kredytów; i++)
+        payment = 0;
+        for (int i = 0; i < number_of_loans; i++)
         {
-            if (obecna_tura == kredyty[i].get_tura_wziecia_kredytu() + kredyty[i].get_duration())
+            if (current_round == loans[i].get_round_of_loan_taking() + loans[i].get_duration())
             {
-                oplata += kredyty[i].payment(kredyty[i]);
+                payment += loans[i].payment(loans[i]);
             }
         }
-        return oplata;
+        return payment;
     }
-    double get_stan_konta() const
+    double get_state_of_account() const
     {
-        return stan_konta;
+        return state_of_account;
     }
-    int get_n_Inżynierów() const
-    {
-        int n = 0;
-        for (int i = 0; i < n_pracowników; i++)
-        {
-            if (std::holds_alternative<Inżynier>(prac[i]))
-            {
-                n++;
-            }
-        }
-        return n;
-    }
-    int get_n_Magazynierów() const
-    {
-        int n = 0;
-        for (int i = 0; i < n_pracowników; i++)
-        {
-            if (std::holds_alternative<Magazynier>(prac[i]))
-            {
-                n++;
-            }
-        }
-        return n;
-    }
-    int get_n_Marketerów() const
-    {
-        int n = 0;
-        for (int i = 0; i < n_pracowników; i++)
-        {
-            if (std::holds_alternative<Marketer>(prac[i]))
-            {
-                n++;
-            }
-        }
-        return n;
-    }
-    int get_n_Robotników() const
-    {
-        int n = 0;
-        for (int i = 0; i < n_pracowników; i++)
-        {
-            if (std::holds_alternative<Robotnik>(prac[i]))
-            {
-                n++;
-            }
-        }
-        return n;
-    }
-    double get_pojemnosc_magazynu() const
+    double get_magazine_capacity() const
     {   
-        return Magazynier::CMag * get_n_Magazynierów();
+        return Warehouse_worker::CMag * Warehouse_worker::get_number_of_warehouse_workers();
     }
-    double get_cena_produktu() const
+    double get_product_price() const
     {
-        return Inżynier::CI * get_n_Inżynierów();
+        return Engineer::CI * Engineer::get_number_of_engineers();
     }
-    double get_popyt() const
+    double get_demand() const
     {
-        return Marketer::CMkt * get_n_Marketerów();
+        return Marketer::CMkt * Marketer::get_number_of_marketers();
     }
-    double get_teoretyczna_produkcja() const
+    double get_theoretical_output() const
     {
-        return get_n_Robotników() * Inżynier::CI;
+        return Construction_worker::get_number_of_construction_workers() * Engineer::CI;
     }
-    double get_faktyczna_produkcja() const
+    double get_real_output() const
     {
-        return std::min(get_pojemnosc_magazynu(), get_teoretyczna_produkcja());
+        return std::min(get_magazine_capacity(), get_theoretical_output());
     }
-    double get_sprzedane_produkty() const
+    double get_sold_products() const
     {
-        return std::min(get_popyt(), get_faktyczna_produkcja());
+        return std::min(get_demand(), get_real_output());
     }
-    double get_przychód() const
+    double get_income() const
     {
-        return przychód;
+        return income;
     }    
-    double get_dochód() const
+    double get_revenue() const
     {
-        return dochód;
+        return revenue;
     }
-    double wartosc_spolki(const int& obecna_tura)
+    double company_value(const int& current_round)
     {
-        obecna_wartosc_spolki = 0;
+        current_company_value = 0;
         double sum = 0;
-        if(obecna_tura < N)
+        if(current_round < N)
         {
-            std::cout << "Nie można obliczyć wartości spółki, gra trwa mniej niż 3 tury\n";
+            std::cout << "The value of the company cannot be calculated, the game lasts less than 3 turns\n";
         }
         else
-            for (int i = obecna_tura-N+1; i <= obecna_tura; i++)
+            for (int i = current_round-N+1; i <= current_round; i++)
             {
-                sum += historia_przychodów[i];
+                sum += income_history[i];
             }
-        return obecna_wartosc_spolki = sum/N;
+        return current_company_value = sum/N;
     }
-    double get_obecna_wartosc_spolki() const
+    double get_current_company_value() const
     {
-        return obecna_wartosc_spolki;
+        return current_company_value;
     }
-    void finances(const int& obecna_tura)
+    void finances(const int& current_round)
     {
-        przychód = 0;
-        dochód = 0;
-        przychód = get_sprzedane_produkty() * get_cena_produktu();
-        historia_przychodów[obecna_tura] = przychód;
-        dochód = get_przychód() - wynagrodzenie_w_tej_turze - oplata;
-        stan_konta += dochód;
-        wartosc_spolki(obecna_tura);
+        income = 0;
+        revenue = 0;
+        income = get_sold_products() * get_product_price();
+        income_history[current_round] = income;
+        revenue = get_income() - current_round_salary - payment;
+        state_of_account += revenue;
+        company_value(current_round);
     }
-    void stan_firmy()
+    void state_of_the_company()
     {
-        std::cout << "\n" << "Stan konta: " << get_stan_konta() << "\n";
-        std::cout << "Dochód: " << get_dochód() << "\n";
-        std::cout << "Liczba pracowników: " << n_pracowników << "\n";
-        std::cout << "Liczba Inżynierów: " << get_n_Inżynierów() << "\n";
-        std::cout << "Liczba Magazynierów: " << get_n_Magazynierów() << "\n";
-        std::cout << "Liczba Marketerów: " << get_n_Marketerów() << "\n";
-        std::cout << "Liczba Robotników: " << get_n_Robotników() << "\n";
-        std::cout << "Pojemność magazynu: " << get_pojemnosc_magazynu() << "\n";
-        std::cout << "Cena produktu: " << get_cena_produktu() << "\n";
-        std::cout << "Popyt: " << get_popyt() << "\n";
-        std::cout << "Teoretyczna produkcja: " << get_teoretyczna_produkcja() << "\n";
-        std::cout << "Faktyczna produkcja: " << get_faktyczna_produkcja() << "\n";
-        std::cout << "Sprzedane produkty: " << get_sprzedane_produkty() << "\n";
-        std::cout << "Przychód: " << get_przychód() << "\n";
-        std::cout << "Wartość spółki: " << get_obecna_wartosc_spolki() << "\n";
+        std::cout << "\n" << "Account state: " << get_state_of_account() << "\n";
+        std::cout << "Revenue: " << get_revenue() << "\n";
+        std::cout << "Number of employees: " << Employee::get_number_of_employees() << "\n";
+        std::cout << "Number of Engineers: " << Engineer::get_number_of_engineers() << "\n";
+        std::cout << "Number of Warehouse Workers: " << Warehouse_worker::get_number_of_warehouse_workers() << "\n";
+        std::cout << "Number of Marketers: " << Marketer::get_number_of_marketers() << "\n";
+        std::cout << "Number of Construction Workers: " << Construction_worker::get_number_of_construction_workers() << "\n";
+        std::cout << "Warehouse capacity: " << get_magazine_capacity() << "\n";
+        std::cout << "Product price: " << get_product_price() << "\n";
+        std::cout << "Demand: " << get_demand() << "\n";
+        std::cout << "Theoretical production: " << get_theoretical_output() << "\n";
+        std::cout << "Actual production: " << get_real_output() << "\n";
+        std::cout << "Sold products: " << get_sold_products() << "\n";
+        std::cout << "Income: " << get_income() << "\n";
+        std::cout << "Company value: " << get_current_company_value() << "\n";
     };
 private:
     const int N = 3;
-    int n_pracowników = 0;
-    double dochód = 0;
-    double wynagrodzenie_w_tej_turze = 0;
-    double oplata = 0;
-    double przychód = 0;
-    double obecna_wartosc_spolki = 0;
-    std::unique_ptr<double[]> historia_przychodów;
-    double stan_konta;
-    int n_kredytów = 0;
-    std::unique_ptr<Credit[]> kredyty;
-    std::vector<std::variant<Inżynier, Magazynier, Marketer, Robotnik>> prac;
+    double revenue = 0;
+    double current_round_salary = 0;
+    double payment = 0;
+    double income = 0;
+    double current_company_value = 0;
+    std::unique_ptr<double[]> income_history;
+    double state_of_account;
+    int number_of_loans = 0;
+    std::unique_ptr<Credit[]> loans;
+    std::vector<std::variant<Engineer, Warehouse_worker, Marketer, Construction_worker>> workers_vector;
 };
 
 class Game : public Company
 {
 public:
-    Game() : tura{0}
+    Game() : round{0}
     {
-        firma = std::make_unique<Company>();
-        firma->zatrudnij("Inżynier");
-        firma->zatrudnij("Magazynier");
-        firma->zatrudnij("Marketer");
-        firma->zatrudnij("Robotnik");
-        firma->stan_firmy();
-        std::cout << "\n" << "Tura: " << tura << "\n";
+        company = std::make_unique<Company>();
+        company->hire("Engineer");
+        company->hire("Warehouse_worker");
+        company->hire("Marketer");
+        company->hire("Construction_worker");
+        company->state_of_the_company();
+        std::cout << "\n" << "round: " << round << "\n";
     }
-    void akcja_gracza()
+    void player_action()
     {
         std::cout << "\n"<< "Możliwe akcje:\n";
-        std::cout << "1. Zatrudnij pracownika\n";
-        std::cout << "2. Weź kredyt\n";
+        std::cout << "1. hire pracownika\n";
+        std::cout << "2. Take loan\n";
         std::cout << "3. Wydrukuj pracowników\n";
-        std::cout << "4. Wydrukuj stan firmy\n";
-        std::cout << "5. Kolejna tura\n";
+        std::cout << "4. Wydrukuj state firmy\n";
+        std::cout << "5. Kolejna round\n";
         std::cout << "6. Zakończ grę\n";
         std::cout << "Wybierz akcję: " << "\n";
-        std::cin >> akcja;
-        if (akcja == 1)
+        std::cin >> action;
+        if (action == 1)
         {
             std::cout << "\n" << "Wybierz pracownika do zatrudnienia:\n";
-            std::cout << "1. Inżynier\n";
-            std::cout << "2. Magazynier\n";
+            std::cout << "1. Engineer\n";
+            std::cout << "2. Warehouse_worker\n";
             std::cout << "3. Marketer\n";
-            std::cout << "4. Robotnik\n";
+            std::cout << "4. Construction_worker\n";
             std::cout << "Wybierz pracownika: " << "\n";
-            std::cin >> akcja;
-            if (akcja == 1)
+            std::cin >> action;
+            if (action == 1)
             {
-                firma->zatrudnij("Inżynier");
+                company->hire("Engineer");
             }
-            else if (akcja == 2)
+            else if (action == 2)
             {
-                firma->zatrudnij("Magazynier");
+                company->hire("Warehouse_worker");
             }
-            else if (akcja == 3)
+            else if (action == 3)
             {
-                firma->zatrudnij("Marketer");
+                company->hire("Marketer");
             }
-            else if (akcja == 4)
+            else if (action == 4)
             {
-                firma->zatrudnij("Robotnik");
+                company->hire("Construction_worker");
             }
         }
-        else if (akcja == 2)
+        else if (action == 2)
         {
-            double kwota;
+            double ammount;
             int duration;
-            std::cout << "Podaj kwotę kredytu: ";
-            std::cin >> kwota;
-            std::cout << "Podaj czas trwania kredytu: ";
+            std::cout << "Podaj kwotę loanu: ";
+            std::cin >> ammount;
+            std::cout << "Podaj czas trwania loanu: ";
             std::cin >> duration;
-            firma->wez_kredyt(kwota, duration, tura);
+            company->take_loan(ammount, duration, round);
         }
-        else if (akcja == 3)
+        else if (action == 3)
         {
-            firma->drukuj_pracowników();
+            company->print_employees();
         }
-        else if (akcja == 4)
+        else if (action == 4)
         {
-            firma->stan_firmy();
+            company->state_of_the_company();
         }
-        else if (akcja == 5)
+        else if (action == 5)
         {
-            this->increase_tura();
-            firma->zaplac_wynagrodzenia();
-            firma->oplata_kredytu(tura);
-            firma->finances(tura);
-            firma->stan_firmy();
-            std::cout << "\n" << "Tura: " << tura << "\n";
-            void akcja_gracza();
+            this->increase_round();
+            company->pay_salary();
+            company->loan_payment(round);
+            company->finances(round);
+            company->state_of_the_company();
+            std::cout << "\n" << "round: " << round << "\n";
+            void player_action();
         }
-        else if (akcja == 6)
+        else if (action == 6)
         {
-            stan = false;
+            state = false;
+        }
+        else
+        {
+            std::cout << "No such action\n";
+            player_action();
         }
     };
     bool get_stan()
     {
-        return stan;
+        return state;
     };
-    void increase_tura()
+    void increase_round()
     {
-        tura++;
+        round++;
     };
-    int get_tura()
+    int get_round()
     {
-        return tura;
+        return round;
     };
 private:
-    int akcja;
-    int tura;
-    bool stan = true;
-    std::unique_ptr<Company> firma;
+    int action;
+    int round;
+    bool state = true;
+    std::unique_ptr<Company> company;
 };
+
+int Engineer::number_of_engineers = 0;
+int Warehouse_worker::number_of_warehouse_workers = 0;
+int Marketer::number_of_marketers = 0;
+int Construction_worker::number_of_construction_workers = 0;
+int Employee::number_of_employees = 0;
 
 int main()
 {
     Game game_1;
-    while (game_1.get_stan() == true)
+    if (game_1.get_stan() == true)
     {
-        game_1.akcja_gracza();
+        game_1.player_action();
     }
+    std::cout << "GAME OVER\n";
+    exit(0);
     return 0;
 }
