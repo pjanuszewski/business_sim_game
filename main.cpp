@@ -8,10 +8,6 @@
 class Employee
 {
 public:
-    Employee()
-    {
-        number_of_employees++;
-    }
     void set_name()
     {
         name = get_random_name();
@@ -29,6 +25,7 @@ public:
         return number_of_employees;
     }
     protected:
+    static int number_of_employees;
     void set_salary(double salary_value)
     {
         salary = salary_value;
@@ -37,7 +34,6 @@ public:
 private:
     std::string name;
     double salary;  
-    static int number_of_employees;
 };
 
 class Engineer : public Employee
@@ -48,6 +44,7 @@ public:
         set_name();
         set_salary(1000);
         number_of_engineers++;
+        number_of_employees++;
     }
     void print() const
     {
@@ -86,6 +83,7 @@ public:
         set_name();
         set_salary(400);
         number_of_warehouse_workers++;
+        number_of_employees++;
     }
     bool get_unique_quality() const
     {
@@ -119,6 +117,7 @@ public:
         set_name();
         set_salary(500);
         number_of_marketers++;
+        number_of_employees++;
     }
     int get_unique_quality() const
     {
@@ -148,6 +147,7 @@ public:
         set_name();
         set_salary(600);
         number_of_construction_workers++;
+        number_of_employees++;
     }
     double get_unique_quality() const
     {
@@ -332,6 +332,11 @@ public:
         revenue = get_income() - current_round_salary - payment;
         state_of_account += revenue;
         company_value(current_round);
+        if (state_of_account < 0)
+        {
+            std::cout << "You are bankrupt\n GAME OVER\n";
+            exit(0);
+        }
     }
     void state_of_the_company()
     {
@@ -375,28 +380,29 @@ public:
         company->hire("Warehouse_worker");
         company->hire("Marketer");
         company->hire("Construction_worker");
+        company->hire("Forklift_driver");
         company->state_of_the_company();
-        std::cout << "\n" << "round: " << round << "\n";
+        std::cout << "\n" << "Round: " << round << "\n";
     }
     void player_action()
     {
-        std::cout << "\n"<< "Możliwe akcje:\n";
-        std::cout << "1. hire pracownika\n";
+        std::cout << "\n"<< "Possible actions:\n";
+        std::cout << "1. Hire employee\n";
         std::cout << "2. Take loan\n";
-        std::cout << "3. Wydrukuj pracowników\n";
-        std::cout << "4. Wydrukuj state firmy\n";
-        std::cout << "5. Kolejna round\n";
-        std::cout << "6. Zakończ grę\n";
-        std::cout << "Wybierz akcję: " << "\n";
+        std::cout << "3. Print employees\n";
+        std::cout << "4. Print company state\n";
+        std::cout << "5. Next round\n";
+        std::cout << "6. End game\n";
+        std::cout << "Choose action: " << "\n";
         std::cin >> action;
         if (action == 1)
         {
-            std::cout << "\n" << "Wybierz pracownika do zatrudnienia:\n";
+            std::cout << "\n" << "Choose employee to hire:\n";
             std::cout << "1. Engineer\n";
             std::cout << "2. Warehouse_worker\n";
             std::cout << "3. Marketer\n";
             std::cout << "4. Construction_worker\n";
-            std::cout << "Wybierz pracownika: " << "\n";
+            std::cout << "Choose employee: " << "\n";
             std::cin >> action;
             if (action == 1)
             {
@@ -417,13 +423,13 @@ public:
         }
         else if (action == 2)
         {
-            double ammount;
+            double amount;
             int duration;
-            std::cout << "Podaj kwotę loanu: ";
-            std::cin >> ammount;
-            std::cout << "Podaj czas trwania loanu: ";
+            std::cout << "Enter loan amount: ";
+            std::cin >> amount;
+            std::cout << "Enter loan duration: ";
             std::cin >> duration;
-            company->take_loan(ammount, duration, round);
+            company->take_loan(amount, duration, round);
         }
         else if (action == 3)
         {
@@ -449,8 +455,9 @@ public:
         }
         else
         {
-            std::cout << "No such action\n";
-            player_action();
+            std::cin.clear();  // Clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Ignore the rest of the line
+            std::cout << "Invalid action. Please choose again.\n";
         }
     };
     bool get_stan()
@@ -481,11 +488,11 @@ int Employee::number_of_employees = 0;
 int main()
 {
     Game game_1;
-    if (game_1.get_stan() == true)
+    while (game_1.get_stan() == true)
     {
         game_1.player_action();
     }
     std::cout << "GAME OVER\n";
-    exit(0);
+    exit(1);
     return 0;
 }
