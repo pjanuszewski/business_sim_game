@@ -493,6 +493,5 @@ int main()
         game_1.player_action();
     }
     std::cout << "GAME OVER\n";
-    exit(1);
     return 0;
 }
