@@ -20,6 +20,10 @@ public:
     {
         return salary;
     }
+    auto get_unique_quality()  
+    {
+        return unique_quality;
+    }
     static int get_number_of_employees()
     {
         return number_of_employees;
@@ -45,18 +49,15 @@ public:
         set_salary(1000);
         number_of_engineers++;
         number_of_employees++;
+        unique_quality = pickRandomString(strings);
     }
     void print() const
     {
         std::cout << "Name of engineer: " << get_name() << "\n";
         std::cout << "salary (PLN): " << get_salary() << "\n";
-        std::cout << "Education: " << get_unique_quality() << "\n";
+        std::cout << "Education: " << unique_quality << "\n";
     }
-    std::string get_unique_quality() const
-    {
-        return unique_quality;
-    }
-        std::string pickRandomString(const std::vector<std::string>& strings)
+    std::string pickRandomString(const std::vector<std::string>& strings)
     {
         std::random_device rd;
         std::mt19937 gen(rd());
@@ -68,10 +69,10 @@ public:
     {
         return number_of_engineers;
     }
-    constexpr static const double CI = 134;
+    constexpr static double CI = 134;
 private:
     std::vector<std::string> strings = {"Robotics", "Energy", "Aviation"};
-    std::string unique_quality = pickRandomString(strings);
+    std::string unique_quality;
     static int number_of_engineers;
 };
 
@@ -84,28 +85,25 @@ public:
         set_salary(400);
         number_of_warehouse_workers++;
         number_of_employees++;
-    }
-    bool get_unique_quality() const
-    {
-        return unique_quality;
+        unique_quality = generate_random_bool();
     }
     void print() const
     {
         std::cout << "Name of warehouse worker: " << get_name() << "\n";
         std::cout << "salary (PLN): " << get_salary() << "\n";
-        std::cout << "Forklift license: " << get_unique_quality() << "\n";
+        std::cout << "Forklift license: " << unique_quality << "\n";
     }
     static int get_number_of_warehouse_workers()
     {
         return number_of_warehouse_workers;
     }
-    constexpr static const double CMag = 123;
+    constexpr static double CMag = 123;
 private:
     bool generate_random_bool()
     {
         return rand() % 2 == 0;
     }
-    bool unique_quality = generate_random_bool();
+    bool unique_quality;
     static int number_of_warehouse_workers;
 };
 
@@ -118,24 +116,21 @@ public:
         set_salary(500);
         number_of_marketers++;
         number_of_employees++;
-    }
-    int get_unique_quality() const
-    {
-        return unique_quality;
+        unique_quality = rand() % 1001;
     }
     void print() const
     {
         std::cout << "Name of Marketer: " << get_name() << "\n";
         std::cout << "salary (PLN): " << get_salary() << "\n";
-        std::cout << "Instagram followers: " << get_unique_quality() << "\n";
+        std::cout << "Instagram followers: " << unique_quality << "\n";
     }
     static int get_number_of_marketers()
     {
         return number_of_marketers;
     }
-    constexpr static const double CMkt = 145;
+    constexpr static double CMkt = 145;
 private:
-    int unique_quality = rand() % 1001;
+    int unique_quality;
     static int number_of_marketers;
 };
 
@@ -148,24 +143,21 @@ public:
         set_salary(600);
         number_of_construction_workers++;
         number_of_employees++;
-    }
-    double get_unique_quality() const
-    {
-        return unique_quality;
+        unique_quality = rand() % 20;
     }
     void print() const
     {
         std::cout << "Name of construction worker: " << get_name() << "\n";
         std::cout << "salary (PLN): " << get_salary() << "\n";
-        std::cout << "Shoe size: " << get_unique_quality() << "\n";
+        std::cout << "Shoe size: " << unique_quality << "\n";
     }
     static int get_number_of_construction_workers()
     {
         return number_of_construction_workers;
     }
-    constexpr static const double CR = 78;
+    constexpr static double CR = 78;
 private:
-    double unique_quality = rand() % 20;
+    double unique_quality;
     static int number_of_construction_workers;
 };
 
@@ -493,6 +485,5 @@ int main()
         game_1.player_action();
     }
     std::cout << "GAME OVER\n";
-    exit(1);
     return 0;
 }
