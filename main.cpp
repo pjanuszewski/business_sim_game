@@ -452,7 +452,7 @@ public:
             std::cout << "Invalid action. Please choose again.\n";
         }
     };
-    bool get_stan()
+    bool get_state()
     {
         return state;
     };
@@ -480,7 +480,7 @@ int Employee::number_of_employees = 0;
 int main()
 {
     Game game_1;
-    while (game_1.get_stan() == true)
+    while (game_1.get_state() == true)
     {
         game_1.player_action();
     }
